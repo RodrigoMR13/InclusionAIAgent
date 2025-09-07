@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Depurador do Python: Arquivo Atual",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "python": "C:\\Users\\Public\\repos\\Estudos\\Faculdade\\projeto_aplicado_3\\.venv\\Scripts\\python.exe"
+    }
+  ]
+}

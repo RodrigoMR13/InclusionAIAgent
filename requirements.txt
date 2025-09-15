@@ -6,3 +6,5 @@ langchain-chroma==0.2.5
 chromadb==1.0.20
 google-genai==1.33.0
 pypdf==6.0.0
+fastapi==0.116.1
+pyngrok==7.3.0

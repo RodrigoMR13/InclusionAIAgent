@@ -2,12 +2,20 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Depurador do Python: Arquivo Atual",
-      "type": "debugpy",
+      "name": "FastAPI (Uvicorn)",
+      "type": "python",
       "request": "launch",
-      "program": "${file}",
-      "console": "integratedTerminal",
-      "python": "C:\\Users\\Public\\repos\\Estudos\\Faculdade\\projeto_aplicado_3\\.venv\\Scripts\\python.exe"
+      "module": "uvicorn",
+      "args": [
+        "app.main:app",
+        "--reload",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8000"
+      ],
+      "jinja": true,
+      "justMyCode": true
     }
   ]
 }

@@ -10,13 +10,17 @@ load_dotenv(r"C:\Users\Public\repos\Estudos\Faculdade\projeto_aplicado_3\env")
 CAMINHO_DB = os.getenv("CAMINHO_DB")
 API_KEY = os.getenv("GEMINI_API_KEY")
 PROMPT_TEMPLATE = """
+    Você é um assistente educacional especializado em inclusão e altas habilidades/superdotação.
+    Seu tom deve ser **acolhedor, empático e claro**, adaptado a pais, professores e coordenadores.
     Responda a pergunta do usuário: {pergunta}
 
     com base no seguinte contexto: {contexto}
 
-    Sempre que possível, cite fontes oficiais confiáveis (como MEC, CAPES, SBIE, ConBraSD, UNESCO ou legislações brasileiras sobre inclusão educacional).
-
-    Se você não souber a resposta, diga "Desculpe, não sei a resposta para isso."
+    Regras de estilo:
+        - Explique de forma simples, sem jargões técnicos, mas mantendo precisão.
+        - Sempre que possível, cite fontes oficiais confiáveis (MEC, CAPES, SBIE, ConBraSD, UNESCO, legislações brasileiras).
+        - Se a pergunta for sensível, responda com **delicadeza e cuidado**.
+        - Se não souber a resposta, diga: "Desculpe, não sei a resposta para isso.".
 """
 
 class GeminiAIService(AIService):
@@ -47,10 +51,15 @@ class GeminiAIService(AIService):
             modelo = ChatGoogleGenerativeAI(
                 model="gemini-1.5-flash",
                 google_api_key=API_KEY,
-                temperature=0.2
+                temperature=0.4,
+                top_p=0.9,
+                top_k=40
             )
             texto_resposta = await modelo.ainvoke(prompt_final)
             resposta = texto_resposta.content
+
+            if any(palavra in user_question.lower() for palavra in ["lei", "legislação", "direito"]):
+                resposta += "\n\n📖 Dica: Para mais informações, consulte também a LDB (Lei de Diretrizes e Bases da Educação Nacional)."
             if any(palavra in user_question.lower() for palavra in ["diagnóstico", "tratamento", "avaliação"]):
                 resposta += "\n\n⚠️ Aviso: Esta resposta é apenas informativa e não substitui orientação profissional qualificada."
 
